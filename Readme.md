@@ -7,6 +7,7 @@ Tiny RPN calculator implemented entirely in template metaprogramming. No runtime
 - The stack is a variadic non-type pack stored in a `Stack` struct.
 - The engine pattern-matches on tokens via template specialization, pushing values and collapsing the stack when it sees an operator.
 - The result is computed at compile time and checked with a `static_assert`.
+- A small compile-time "coroutine-like" generator uses a state machine (`Yield`/`Done`) to emit a sequence at compile time.
 
 ## Supported operators
 

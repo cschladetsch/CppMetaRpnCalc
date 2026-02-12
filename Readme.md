@@ -12,6 +12,8 @@ Tiny RPN calculator implemented entirely in template metaprogramming. No runtime
 
 `+` (`Op::Add`), `-` (`Op::Sub`), `*` (`Op::Mul`), `/` (`Op::Div`), `%` (`Op::Mod`)
 
+Note: operator enum values are offset from small integers so numeric tokens (like `4`) are never mistaken for an `Op`.
+
 ## Examples
 
 In `main.cpp`:

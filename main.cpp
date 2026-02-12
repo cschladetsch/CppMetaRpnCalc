@@ -1,7 +1,7 @@
 #include <iostream>
 #include <type_traits>
 
-enum class Op { Add, Sub, Mul, Div, Mod };
+enum class Op : int { Add = 1000, Sub = 1001, Mul = 1002, Div = 1003, Mod = 1004 };
 
 // The Stack
 template <auto... Vs> struct Stack {};
@@ -18,14 +18,9 @@ struct RPN<Stack<Result, Rest...>> {
 
 // --- 2. Push Value: Head of tokens is not an Op ---
 template <auto... Vs, auto Head, auto... Tail>
-struct RPN<Stack<Vs...>, Head, Tail...> {
-    using next_step = typename std::conditional_t<
-        std::is_same_v<decltype(Head), Op>,
-        void, // This branch is handled by the specializations below
-        RPN<Stack<Head, Vs...>, Tail...>
-    >;
-    static constexpr auto value = next_step::value;
-};
+requires (!std::is_same_v<decltype(Head), Op>)
+struct RPN<Stack<Vs...>, Head, Tail...>
+    : RPN<Stack<Head, Vs...>, Tail...> {};
 
 // --- 3. Operator Specializations ---
 // These match when the *next* token is specifically an Op

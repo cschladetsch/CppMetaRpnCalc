@@ -15,6 +15,16 @@ Tiny RPN calculator implemented entirely in template metaprogramming. No runtime
 
 Note: operator enum values are offset from small integers so numeric tokens (like `4`) are never mistaken for an `Op`.
 
+## Compile-time coroutine-like generator
+
+This is a tiny "yield" state machine that runs at compile time:
+
+- `Yield<V, Next>` emits a value and transitions to the next state type.
+- `Done<V>` terminates and stores the final value.
+- `Run<Step, State>` repeatedly applies `Step<State>` to produce a `RunResult` with `yields` (a `Stack<...>`) and `final`.
+
+It is not a real C++20 coroutine, but it mimics the idea of resuming with state and collecting yielded values entirely at compile time.
+
 ## Examples
 
 In `main.cpp`:

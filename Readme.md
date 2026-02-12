@@ -19,6 +19,11 @@ Note: operator enum values are offset from small integers so numeric tokens (lik
 In `main.cpp`:
 
 ```cpp
+// Compile-time coroutine-like generator
+using Gen = Run<GenStep, GenState<0>>::type;
+static_assert(std::is_same_v<typename Gen::yields, Stack<1, 2, 3>>);
+static_assert(Gen::final == 3);
+
 // (5 + 10) * 3
 using Calc = RPN<Stack<>, 5, 10, Op::Add, 3, Op::Mul>;
 static_assert(Calc::value == 45);

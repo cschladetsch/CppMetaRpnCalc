@@ -35,6 +35,6 @@ static_assert(Calc2::value == 8);
 ## Build and run
 
 ```sh
-g++ -std=c++20 -O2 -Wall -Wextra -pedantic main.cpp -o rpn
+./b
 ./rpn
 ```
